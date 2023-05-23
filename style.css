@@ -23,7 +23,7 @@ body {
 
 .calculator > button {
     cursor: pointer;
-    font-size: 25px;
+    font-size: 45px;
     border: 1px solid white;
     background-color: rgba(145, 166, 240, 0.8);
 }
@@ -38,6 +38,17 @@ body {
 }
 
 .output {
-    grid-column: 1 / 4;
+    grid-column: 1 / -1;
     background-color: rgb(106, 106, 247);
+    display: flex;
+    align-items:center;
+    justify-content: flex-end;
+}
+
+.previous-operand {
+    font-size: 20px;
+}
+
+.current-operand {
+    font-size: 30px;
 }
