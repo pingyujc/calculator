@@ -1,57 +1,76 @@
-class calculator {
-    // defines all the functions needed here
-    clear() {
-        // AC, clear the numbers
+class Calculator{
+    constructor(previousOperand, currentOperand){
+        this.previousOperand = previousOperand
+        this.currentOperand = currentOperand
+        this.clear()
     }
-    add() {
-        // add
+
+    // all clear
+    clear(){
+        this.previousOperand = ""
+        this.currentOperand = ""
+        this.operation = undefined
     }
-    subtract() {
-        // sub
+
+    delete(){
+
     }
-    multiply() {
-        // mult
+
+
+    append(number){
+        // if input is invalid: there are 2 '.' in the string, return
+        // if (number == '.' && this.currentOperand.includes('.')) {
+        //     return
+        // }
+        // console.log(this.currentOperand)
+        // this.currentOperand = this.currentOperand.toString() + number.toString()
+        // console.log(this.currentOperand)
+
+        this.currentOperand = number
     }
-    equal() {
-        // =
+    chooseOperation(operation){
+
     }
-    divide() {
-        // 
+    compute(){
+
     }
-    appendNumber() {
-        // when typing numbers, the display should change too
+    updateDisplay(){
+        this.currentOperand.innerText = this.currentOperand
     }
 }
 
 
 
 
-// get reference to the HTML elements
-const result = document.querySelector('#result');
-// const number0 = document.querySelector('#number0');
-const number0 = document.getElementById('#number0');
-const number1 = document.querySelector('#number1');
-const number2 = document.querySelector('#number2');
-const number3 = document.querySelector('#number3');
-const number4 = document.querySelector('#number4');
-const number5 = document.querySelector('#number5');
-const number6 = document.querySelector('#number6');
-const number7 = document.querySelector('#number7');
-const number8 = document.querySelector('#number8');
-const number9 = document.querySelector('#number9');
-const numberArray = [number0, number1, number2, number3, number4, number5, number6, number7, number8, number9];
+// select the HTML elements
+const numberButtons = document.querySelectorAll('[data-number]')
+const operationButtons = document.querySelectorAll('[data-operation]')
+const equalButton = document.querySelector('[data-equal]')
+const deleteButton = document.querySelector('[data-delete]')
+const allClearButton = document.querySelector('[data-all-clear]')
+const previousOperand = document.querySelector('[data-previous]')
+const currentOperand = document.querySelector('[data-current]')
 
-// function to test if we can use the number button
-function displayClick(numstr){
-    console.log(numstr);
-}
+// creating the calculator
+const calculator = new Calculator(previousOperand, currentOperand)
+
+// run for loop through the numberButtons
+// 
+numberButtons.forEach(number => {
+    number.addEventListener('click', () => {
+        calculator.append(number.innerHTML)
+        calculator.updateDisplay()
+        // console.log(this.currentOperand)
+    })
+})
 
 
-number0.addEventListener('click', () => displayClick('0'));
-// // add event lister for all number buttons
-// for (let i=0; i<numberArray.length; i++){
-//     let numberEL = numberArray[i]; // the current button
-//     // numberEL.addEventListener('click', displayClick(i.toString()));
-//     numberEL.addEventListener('click', () => displayClick(i.toString()));
-// }
 
+operationButtons.forEach(operation => {
+    operation.addEventListener('click', () => {
+        console.log(operation.innerHTML)
+    })
+})
+
+// clear the previous and current operand
+allClearButton.addEventListener('click', () => calculator.clear())

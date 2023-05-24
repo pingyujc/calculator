@@ -41,14 +41,20 @@ body {
     grid-column: 1 / -1;
     background-color: rgb(106, 106, 247);
     display: flex;
-    align-items:center;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .previous-operand {
+    color: rgb(201, 206, 206);
     font-size: 20px;
 }
 
 .current-operand {
+    color: rgb(231, 232, 234);
     font-size: 30px;
 }
