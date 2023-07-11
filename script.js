@@ -5,37 +5,50 @@ class Calculator{
         this.clear()
     }
 
-    // all clear
+    // all clear AC
+    // just clear the display at top
+    // making everything empty
     clear(){
         this.previousOperand = ""
         this.currentOperand = ""
         this.operation = undefined
     }
-
+    
+    // delete one digit
+    // remove the last digit
     delete(){
-
+        this.currentOperand = this.currentOperand.toString().slice(0,-1)
     }
 
 
+    // call this function when a number is clicked and should be add to the display
     append(number){
         // if input is invalid: there are 2 '.' in the string, return
-        // if (number == '.' && this.currentOperand.includes('.')) {
-        //     return
-        // }
-        // console.log(this.currentOperand)
-        // this.currentOperand = this.currentOperand.toString() + number.toString()
-        // console.log(this.currentOperand)
+        if (number == '.' && this.currentOperand.includes('.')) {
+            return
+        }
+        // print the current operand before appending
+        console.log(this.currentOperand)
+        // this line will make the current number into a string and add it to the end of the current number
+        this.currentOperand = this.currentOperand.toString() + number.toString()
+        // print again to check if the changes have been made
+        console.log(this.currentOperand)
 
-        this.currentOperand = number
     }
+
+    // this function will choose what operation we are performing
     chooseOperation(operation){
 
     }
+
+    // will calculate
     compute(){
 
     }
+
+    // this function will update the display on the webpage
     updateDisplay(){
-        this.currentOperand.innerText = this.currentOperand
+        this.currentOperand.innerText = '123'
     }
 }
 
@@ -60,7 +73,7 @@ numberButtons.forEach(number => {
     number.addEventListener('click', () => {
         calculator.append(number.innerHTML)
         calculator.updateDisplay()
-        // console.log(this.currentOperand)
+        console.log(this.currentOperand)
     })
 })
 
@@ -72,5 +85,10 @@ operationButtons.forEach(operation => {
     })
 })
 
+// when AC is clicked
 // clear the previous and current operand
 allClearButton.addEventListener('click', () => calculator.clear())
+
+// when delete is clicked 
+// delete the last digit of the current operand
+deleteButton.addEventListener('click', () => calculator.delete())
