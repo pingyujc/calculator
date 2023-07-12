@@ -1,7 +1,7 @@
 class Calculator{
-    constructor(previousOperand, currentOperand){
-        this.previousOperand = previousOperand
-        this.currentOperand = currentOperand
+    constructor(previousOperandText, currentOperandText){
+        this.previousOperandText = previousOperandText
+        this.currentOperandText = currentOperandText
         this.clear()
     }
 
@@ -36,8 +36,12 @@ class Calculator{
 
     }
 
+
     // this function will choose what operation we are performing
     chooseOperation(operation){
+        this.operation = operation // saving the operation chosen
+        this.previousOperand = this.currentOperand // saving the current number, move it to the prev
+        this.currentOperand = '' // clearing the current number
 
     }
 
@@ -48,7 +52,8 @@ class Calculator{
 
     // this function will update the display on the webpage
     updateDisplay(){
-        this.currentOperand.innerText = '123'
+        this.currentOperandText.innerText = this.currentOperand
+        this.previousOperandText.innerText = this.previousOperand
     }
 }
 
@@ -61,34 +66,56 @@ const operationButtons = document.querySelectorAll('[data-operation]')
 const equalButton = document.querySelector('[data-equal]')
 const deleteButton = document.querySelector('[data-delete]')
 const allClearButton = document.querySelector('[data-all-clear]')
-const previousOperand = document.querySelector('[data-previous]')
-const currentOperand = document.querySelector('[data-current]')
+const previousOperandText = document.querySelector('[data-previous]')
+const currentOperandText = document.querySelector('[data-current]')
 
 // creating the calculator
-const calculator = new Calculator(previousOperand, currentOperand)
+const calculator = new Calculator(previousOperandText, currentOperandText)
 
 // run for loop through the numberButtons
-// 
+// when clicked
+// append number to the end of the current 
+// update whats on the screen
 numberButtons.forEach(number => {
     number.addEventListener('click', () => {
-        calculator.append(number.innerHTML)
+        calculator.append(number.innerText)
         calculator.updateDisplay()
-        console.log(this.currentOperand)
+        // console.log(this.currentOperandText)
     })
 })
 
-
-
+// run for all the operations
+// when clicked
+// move the original number to the prev
+// save the 
 operationButtons.forEach(operation => {
     operation.addEventListener('click', () => {
+        calculator.chooseOperation(operation.innerText)
+        calculator.updateDisplay()
         console.log(operation.innerHTML)
     })
 })
 
 // when AC is clicked
 // clear the previous and current operand
-allClearButton.addEventListener('click', () => calculator.clear())
+// update the display right after
+allClearButton.addEventListener('click', () => {
+    calculator.clear()
+    calculator.updateDisplay()
+})
 
 // when delete is clicked 
 // delete the last digit of the current operand
-deleteButton.addEventListener('click', () => calculator.delete())
+// once delete, update the display directly.
+deleteButton.addEventListener('click', () => {
+    calculator.delete()
+    calculator.updateDisplay()
+})
+
+// when equal is clicked
+// compute the math
+// update the display
+equalButton.addEventListener('click', button => {
+    calculator.compute()
+    calculator.updateDisplay()
+  })
