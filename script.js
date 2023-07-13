@@ -9,8 +9,8 @@ class Calculator{
     // just clear the display at top
     // making everything empty
     clear(){
-        this.previousOperand = ""
-        this.currentOperand = ""
+        this.previousOperand = ''
+        this.currentOperand = ''
         this.operation = undefined
     }
     
@@ -38,8 +38,13 @@ class Calculator{
 
 
     // this function will choose what operation we are performing
-    chooseOperation(operation){
-        this.operation = operation // saving the operation chosen
+    // some egde cases:
+    // when the current operand is empty, we cant choice any operation
+    chooseOperation(operation_choice){
+        if (this.currentOperand == '') {
+            return
+        }
+        this.operation = operation_choice // saving the operation chosen
         this.previousOperand = this.currentOperand // saving the current number, move it to the prev
         this.currentOperand = '' // clearing the current number
 
@@ -47,7 +52,31 @@ class Calculator{
 
     // will calculate
     compute(){
+        // only compute if there is something to compute with
+        if (this.previousOperand == '' || this.currentOperand == '') {
+            return
+        }
+        // console.log(this.operation) // this.operation should store the current computation we are doing
 
+        let result
+        const prev = parseFloat(this.previousOperand)
+        const curr = parseFloat(this.currentOperand)
+        const op = this.operation
+        console.log(op, prev, curr)
+        if (op == '+') {
+            result = prev + curr
+        } else if (op == '-') {
+            result = prev - curr
+        } else if (op == 'x') {
+            result = prev * curr
+        } else {
+            result = prev / curr
+        }
+
+        this.currentOperand = result
+        this.operation = undefined
+        this.previousOperand = ''
+        console.log(this.currentOperand)
     }
 
     // this function will update the display on the webpage
@@ -87,12 +116,12 @@ numberButtons.forEach(number => {
 // run for all the operations
 // when clicked
 // move the original number to the prev
-// save the 
+// save the opearation choice
 operationButtons.forEach(operation => {
     operation.addEventListener('click', () => {
         calculator.chooseOperation(operation.innerText)
         calculator.updateDisplay()
-        console.log(operation.innerHTML)
+        console.log(operation.innerHTML) // print the choice
     })
 })
 
